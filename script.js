@@ -73,6 +73,37 @@ var myConcatModule = (function() {
 
 })();
 
+// convertNums function module
+var convertNumsModule = (function() {
+
+	return {
+		convertNums: function() {
+			var args = arguments,
+				argsLength = arguments.length,
+				argsType = "",
+				originalNum,
+				returnedResult;
+
+			if(argsLength === 0) {
+				console.log("Ошибка! Вы не ввели ни одного аргумента.");
+				return false;
+			} else {
+				originalNum = args[0];
+			}
+
+			if(typeof(originalNum) === "number") {
+				returnedResult = Math.round(originalNum * 100) / 100;
+				returnedResult = returnedResult.toLocaleString();
+				return returnedResult;
+			} else {
+				console.log("Ошибка! Вы ввели не число.");
+				return false;
+			}
+	;	}
+	}
+
+})();
+
 document.addEventListener("DOMContentLoaded", function(event) {
     
 

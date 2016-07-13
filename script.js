@@ -80,7 +80,6 @@ var convertNumsModule = (function() {
 		convertNums: function() {
 			var args = arguments,
 				argsLength = arguments.length,
-				argsType = "",
 				originalNum,
 				returnedResult;
 
@@ -100,6 +99,65 @@ var convertNumsModule = (function() {
 				return false;
 			}
 	;	}
+	}
+
+})();
+
+// checkSubStr function module
+var checkSubStrModule = (function() {
+
+	return {
+		checkSubStr: function() {
+			var args = arguments,
+				argsLength = arguments.length,
+				testArr = [],
+				searchSubStr,
+				returnedResult;
+
+			if(argsLength < 2) {
+				console.log("Ошибка! Необходимо ввести 2 аргумента.");
+				return false;
+			} else {
+				if(Array.isArray(args[0])) {
+					if(args[0].length !== 0) {
+						for(var i=0; i<args[0].length; i++) {
+							if(typeof(args[0][i]) === "string") {
+								testArr = args[0];
+							} else {
+								console.log("Ошибка! Все элементы входного массива должны быть строками.");
+								return false;
+							}
+						}
+					} else {
+						console.log("Ошибка! Массив не должен быть пустым.");
+						return false;
+					}	
+				} else {
+					console.log("Ошибка! Первый аргумент не является массивом.");
+					return false;
+				}
+				if(typeof(args[1]) === "string") {
+					searchSubStr = new RegExp(args[1], "ig");
+				} else {
+					console.log("Ошибка! Второй аргумент не является строкой.");
+					return false;
+				}
+			}
+
+			for(var i=0; i < testArr.length; i++) {
+				var str = testArr[i];
+				if(searchSubStr.test(str)) {
+					returnedResult = true;
+					break;
+				} else {
+					returnedResult = false;
+					continue;
+				}
+			}
+
+			return returnedResult;
+
+		}
 	}
 
 })();

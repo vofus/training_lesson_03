@@ -286,6 +286,64 @@ var checkSubStr = (function() {
 
 })();
 
+// Calendar
+(function() {
+
+	var calendarClass = (function() {
+		function MakeCalendar(year, month) {
+			var now = new Date();
+			this._year = year ? year : now.getFullYear();
+			this._month = month ? month-1 : now.getMonth();
+			this._element = document.querySelector(".calendar");
+		}
+		MakeCalendar.prototype.render = function() {
+			var date = new Date(this._year, this._month),
+				elem = this._element,
+				month = this._month,
+				table = '',
+				beginTable = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>',
+				endTable = '</tr></table>';
+
+			table += beginTable;
+
+			for(var i = 0; i < getDay(date); i++) {
+				table += '<td></td>';
+			}
+
+			while(date.getMonth() === this._month) {
+				table += '<td>' + date.getDate() + '</td>';
+				if(getDay(date) % 7 === 6) {
+					table += '</tr><tr>';
+				}
+				date.setDate(date.getDate() + 1);
+			}
+
+			if(getDay(date) !== 0) {
+				for (var i = getDay(date); i < 7; i++) {
+		        	table += '<td></td>';
+		        }
+			}
+
+			table += endTable;
+
+			elem.innerHTML = table;
+
+			function getDay(date) {
+				var day = date.getDay();
+		        if (day == 0) day = 7;
+		        return day - 1;
+			}
+
+		}
+		return MakeCalendar;
+	})();
+
+	var test = new calendarClass(2012, 12);
+	test.render();
+	console.log(test);
+
+})();
+
 document.addEventListener("DOMContentLoaded", function(event) {
     
 

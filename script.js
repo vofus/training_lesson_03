@@ -292,6 +292,11 @@ var checkSubStr = (function() {
 	var calendarClass = (function() {
 		function MakeCalendar(year, month) {
 			var now = new Date();
+			this._monthsArr = [
+				"Январь", "Февраль", "Март", "Апрель",
+				"Май", "Июнь", "Июль", "Август",
+				"Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+			];
 			this._year = year ? year : now.getFullYear();
 			this._month = month ? month-1 : now.getMonth();
 			this._element = document.querySelector(".calendar");
@@ -300,7 +305,7 @@ var checkSubStr = (function() {
 			var date = new Date(this._year, this._month),
 				elem = this._element,
 				month = this._month,
-				table = '',
+				table = '<h3>' + this._monthsArr[this._month] + ' ' + this._year + ' г.' + '</h3>',
 				beginTable = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>',
 				endTable = '</tr></table>';
 
@@ -338,9 +343,9 @@ var checkSubStr = (function() {
 		return MakeCalendar;
 	})();
 
-	var test = new calendarClass(2012, 12);
-	test.render();
-	console.log(test);
+	var newDate = new calendarClass(2012, 12);
+	newDate.render();
+	console.log(newDate);
 
 })();
 

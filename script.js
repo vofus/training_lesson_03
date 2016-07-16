@@ -156,6 +156,136 @@ var checkSubStr = (function() {
 
 })();
 
+// Timer
+(function() {
+	'use strict';
+
+	var timerClass = (function() {
+		function MakeTimer(finalDate) {
+			this._finalDate = finalDate;
+
+			this._years = document.querySelector(".timer__years-value");
+			this._months = document.querySelector(".timer__months-value");
+			this._days = document.querySelector(".timer__days-value");
+			this._hours = document.querySelector(".timer__hours-value");
+			this._minutes = document.querySelector(".timer__minutes-value");
+			this._seconds = document.querySelector(".timer__seconds-value");
+			
+			this._yearsDescr = document.querySelector(".timer__years-description");
+			this._monthsDescr = document.querySelector(".timer__months-description");
+			this._daysDescr = document.querySelector(".timer__days-description");
+			this._hoursDescr = document.querySelector(".timer__hours-description");
+			this._minutesDescr = document.querySelector(".timer__minutes-description");
+			this._secondsDescr = document.querySelector(".timer__seconds-description");
+		}
+		MakeTimer.prototype.calculate = function() {
+			var nowDate,
+				finalDate,
+				between,
+				years,
+				months,
+				days,
+				hours,
+				minutes,
+				seconds;
+
+			nowDate = new Date();
+			finalDate = this._finalDate;
+			between = finalDate.getTime() - nowDate.getTime();
+			between = Math.floor(between / 1000);
+
+			years = Math.floor(between / (365*24*3600));
+			between = between % (365*24*3600);
+
+			months = Math.floor(between / (30*24*3600));
+			between = between % (30*24*3600);
+
+			days = Math.floor(between / (24*3600));
+			between = between % (24*3600);
+
+			hours = Math.floor(between / 3600);
+			between = between % 3600;
+
+			minutes = Math.floor(between / 60);
+			between = between % 60;
+
+			seconds = between % 60;
+
+			this._years.innerHTML = years;
+			this._months.innerHTML = months;
+			this._days.innerHTML = days;
+			this._hours.innerHTML = hours;
+			this._minutes.innerHTML = minutes;
+			this._seconds.innerHTML = seconds;
+
+			if(years > 4) {
+		      this._yearsDescr.innerHTML = 'Лет';
+		    } else if(years > 1) {
+		      this._yearsDescr.innerHTML = 'Года';
+		    } else if(years ===1){
+		      this._yearsDescr.innerHTML = 'Год';
+		    } else if(years ===0){
+		      this._yearsDescr.innerHTML = 'Лет';
+		    }
+
+		    if(months > 4) {
+		      this._monthsDescr.innerHTML = 'Месяцев';
+		    } else if(months > 1) {
+		      this._monthsDescrl.innerHTML = 'Месяца';
+		    } else if(months === 0) {
+		      this._monthsDescr.innerHTML = 'Месяцев';
+		    }
+
+		    if(days > 4) {
+		      this._daysDescr.innerHTML = 'Дней';
+		    } else if(days > 1) {
+		      this._daysDescr.innerHTML = 'Дня';
+		    } else if(days === 1) {
+		      this._daysDescr.innerHTML = 'День';
+		    } else if(days === 0) {
+		      this._daysDescr.innerHTML = 'Дней';
+		    }
+
+		    if(hours > 4) {
+		      this._hoursDescr.innerHTML = 'Часов';
+		    } else if(hours > 1) {
+		      this._hoursDescr.innerHTML = 'Часа';
+		    } else if(hours === 1) {
+		      this._hoursDescr.innerHTML = 'Час';
+		    } else if(hours === 0) {
+		      this._hoursDescr.innerHTML = 'Часов';
+		    }
+
+		    if(minutes > 4) {
+		      this._minutesDescr.innerHTML = 'Минут';
+		    } else if(minutes > 1) {
+		      this._minutesDescr.innerHTML = 'Минуты';
+		    } else if(minutes === 1) {
+		      this._minutesDescr.innerHTML = 'Минута';
+		    } else if(minutes === 0) {
+		      this._minutesDescr.innerHTML = 'Минут';
+		    }
+
+		    if(seconds > 4) {
+		      this._secondsDescr.innerHTML = 'Секунд';
+		    } else if(seconds > 1) {
+		      this._secondsDescr.innerHTML = 'Секунды';
+		    } else if(seconds === 1) {
+		      this._secondsDescr.innerHTML = 'Секунда';
+		    } else if(seconds === 0) {
+		      this._secondsDescr.innerHTML = 'Секунд';
+		    }
+
+			setTimeout(this.calculate.bind(this), 1000);
+		}
+		return MakeTimer;
+	})();
+
+	var myTimer = new timerClass(new Date(2018, 6, 14));
+	myTimer.calculate();
+
+})();
+
 document.addEventListener("DOMContentLoaded", function(event) {
     
 

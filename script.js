@@ -218,62 +218,16 @@ var checkSubStr = (function() {
 			this._minutes.innerHTML = minutes;
 			this._seconds.innerHTML = seconds;
 
-			if(years > 4) {
-		      this._yearsDescr.innerHTML = 'Лет';
-		    } else if(years > 1) {
-		      this._yearsDescr.innerHTML = 'Года';
-		    } else if(years ===1){
-		      this._yearsDescr.innerHTML = 'Год';
-		    } else if(years ===0){
-		      this._yearsDescr.innerHTML = 'Лет';
-		    }
+			this._yearsDescr.innerHTML = createEndNums(years, ["Год", "Года", "Лет"]);
+			this._monthsDescr.innerHTML = createEndNums(months, ["Месяц", "Месяца", "Месяцев"]);
+			this._daysDescr.innerHTML = createEndNums(days, ["День", "Дня", "Дней"]);
+			this._hoursDescr.innerHTML = createEndNums(hours, ["Час", "Часа", "Часов"]);
+			this._minutesDescr.innerHTML = createEndNums(minutes, ["Минута", "Минуты", "Минут"]);
+			this._secondsDescr.innerHTML = createEndNums(seconds, ["Секунда", "Секунды", "Секунд"]);
 
-		    if(months > 4) {
-		      this._monthsDescr.innerHTML = 'Месяцев';
-		    } else if(months > 1) {
-		      this._monthsDescrl.innerHTML = 'Месяца';
-		    } else if(months === 0) {
-		      this._monthsDescr.innerHTML = 'Месяцев';
-		    }
-
-		    if(days > 4) {
-		      this._daysDescr.innerHTML = 'Дней';
-		    } else if(days > 1) {
-		      this._daysDescr.innerHTML = 'Дня';
-		    } else if(days === 1) {
-		      this._daysDescr.innerHTML = 'День';
-		    } else if(days === 0) {
-		      this._daysDescr.innerHTML = 'Дней';
-		    }
-
-		    if(hours > 4) {
-		      this._hoursDescr.innerHTML = 'Часов';
-		    } else if(hours > 1) {
-		      this._hoursDescr.innerHTML = 'Часа';
-		    } else if(hours === 1) {
-		      this._hoursDescr.innerHTML = 'Час';
-		    } else if(hours === 0) {
-		      this._hoursDescr.innerHTML = 'Часов';
-		    }
-
-		    if(minutes > 4) {
-		      this._minutesDescr.innerHTML = 'Минут';
-		    } else if(minutes > 1) {
-		      this._minutesDescr.innerHTML = 'Минуты';
-		    } else if(minutes === 1) {
-		      this._minutesDescr.innerHTML = 'Минута';
-		    } else if(minutes === 0) {
-		      this._minutesDescr.innerHTML = 'Минут';
-		    }
-
-		    if(seconds > 4) {
-		      this._secondsDescr.innerHTML = 'Секунд';
-		    } else if(seconds > 1) {
-		      this._secondsDescr.innerHTML = 'Секунды';
-		    } else if(seconds === 1) {
-		      this._secondsDescr.innerHTML = 'Секунда';
-		    } else if(seconds === 0) {
-		      this._secondsDescr.innerHTML = 'Секунд';
+		    function createEndNums(number, titles) {
+		    	var cases = [2, 0, 1, 1, 1, 2];  
+    			return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 		    }
 
 			setTimeout(this.calculate.bind(this), 1000);
@@ -288,6 +242,7 @@ var checkSubStr = (function() {
 
 // Calendar
 (function() {
+	"use strict";
 
 	var calendarClass = (function() {
 		function MakeCalendar(year, month) {
@@ -343,14 +298,10 @@ var checkSubStr = (function() {
 		return MakeCalendar;
 	})();
 
-	var newDate = new calendarClass(2012, 12);
+	var yearsSelect, monthsSelect, yearsVal, monthsVal, newDate;
+
+	newDate = new calendarClass(2018, 7);
 	newDate.render();
 	console.log(newDate);
 
 })();
-
-document.addEventListener("DOMContentLoaded", function(event) {
-    
-
-
-});
